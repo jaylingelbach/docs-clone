@@ -1,13 +1,14 @@
 'use client';
 import { cn } from '@/lib/utils';
-import { useEditorStore } from '@/store/use-editor-store';
+import { ChevronDownIcon } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuItem,
   DropdownMenuContent,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
-import { ChevronDownIcon } from 'lucide-react';
+
+import { useEditorStore } from '@/store/use-editor-store';
 
 const FontFamilyButton = () => {
   const { editor } = useEditorStore();

@@ -17,6 +17,7 @@ import { Separator } from '@/components/ui/separator';
 
 import { useEditorStore } from '@/store/use-editor-store';
 import FontFamilyButton from '@/components/fontFamilyButton';
+import HeadingLevelButton from '@/components/headingLevelButton';
 
 interface ToolbarButtonProps {
   onClick?: () => void;
@@ -153,6 +154,7 @@ export const Toolbar = () => {
       {/* TODO: Font family */}
       <FontFamilyButton />
       {/* TODO: Heading */}
+      <HeadingLevelButton />
       {/* TODO: Font size */}
       {/* TODO: Text Color */}
       {/* TODO: HIGHLIGHT COLOR */}
