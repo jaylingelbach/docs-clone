@@ -13,8 +13,10 @@ import {
   Undo2Icon
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useEditorStore } from '@/store/use-editor-store';
 import { Separator } from '@/components/ui/separator';
+
+import { useEditorStore } from '@/store/use-editor-store';
+import FontFamilyButton from '@/components/fontFamilyButton';
 
 interface ToolbarButtonProps {
   onClick?: () => void;
@@ -149,6 +151,7 @@ export const Toolbar = () => {
         <ToolbarButton key={item.label} {...item} />
       ))}
       {/* TODO: Font family */}
+      <FontFamilyButton />
       {/* TODO: Heading */}
       {/* TODO: Font size */}
       {/* TODO: Text Color */}
