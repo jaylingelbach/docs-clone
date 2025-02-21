@@ -1,6 +1,7 @@
 'use client';
 import {
   BoldIcon,
+  Code2Icon,
   ItalicIcon,
   ListTodoIcon,
   LucideIcon,
@@ -18,6 +19,8 @@ import { Separator } from '@/components/ui/separator';
 import { useEditorStore } from '@/store/use-editor-store';
 import FontFamilyButton from '@/components/fontFamilyButton';
 import HeadingLevelButton from '@/components/headingLevelButton';
+import TextColorButton from '@/components/textColorButton';
+import HighlightColorButton from '@/components/highlightColorButton';
 
 interface ToolbarButtonProps {
   onClick?: () => void;
@@ -130,6 +133,14 @@ export const Toolbar = () => {
         isActive: editor?.isActive('taskList') //TODO: Implement.
       },
       {
+        label: 'Code',
+        icon: Code2Icon,
+        isActive: editor?.isActive('codeBlock'),
+        onClick: () => {
+          editor?.chain().focus().toggleCode().run();
+        }
+      },
+      {
         label: 'Remove Formatting',
         icon: RemoveFormattingIcon,
         onClick: () => {
@@ -151,13 +162,20 @@ export const Toolbar = () => {
       {sections[2].map((item) => (
         <ToolbarButton key={item.label} {...item} />
       ))}
+      <Separator orientation="vertical" className="h-6 bg-neutral-400" />
       {/* TODO: Font family */}
       <FontFamilyButton />
+      <Separator orientation="vertical" className="h-6 bg-neutral-400" />
       {/* TODO: Heading */}
       <HeadingLevelButton />
+      <Separator orientation="vertical" className="h-6 bg-neutral-400" />
       {/* TODO: Font size */}
       {/* TODO: Text Color */}
+      <TextColorButton />
+      <Separator orientation="vertical" className="h-6 bg-neutral-400" />
       {/* TODO: HIGHLIGHT COLOR */}
+      <HighlightColorButton />
+      <Separator orientation="vertical" className="h-6 bg-neutral-400" />
       {/* TODO: Link */}
       {/* TODO: Image */}
       {/* TODO: Align */}

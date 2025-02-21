@@ -3,7 +3,6 @@ import { cn } from '@/lib/utils';
 import { ChevronDownIcon } from 'lucide-react';
 import {
   DropdownMenu,
-  DropdownMenuItem,
   DropdownMenuContent,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';

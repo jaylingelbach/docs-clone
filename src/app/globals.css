@@ -88,6 +88,16 @@ body {
 }
 
 .tiptap {
+  /* Coding styles */
+
+  code {
+    background-color: #dec9e9;
+    border-radius: 0.4rem;
+    color: var(--black);
+    font-size: 0.85rem;
+    padding: 0.25em 0.3em;
+  }
+
   /* Heading styles */
   h1,
   h2,

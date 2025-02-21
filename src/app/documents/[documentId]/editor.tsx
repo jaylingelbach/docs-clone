@@ -1,7 +1,10 @@
 'use client';
 
 import { useEditor, EditorContent } from '@tiptap/react';
+import Code from '@tiptap/extension-code';
+import { Color } from '@tiptap/extension-color';
 import FontFamily from '@tiptap/extension-font-family';
+import Highlight from '@tiptap/extension-highlight';
 import Image from '@tiptap/extension-image';
 import ImageResize from 'tiptap-extension-resize-image';
 import StarterKit from '@tiptap/starter-kit';
@@ -52,7 +55,12 @@ export const Editor = () => {
       }
     },
     extensions: [
+      Code,
+      Color,
       FontFamily,
+      Highlight.configure({
+        multicolor: true
+      }),
       Image,
       ImageResize,
       StarterKit,
