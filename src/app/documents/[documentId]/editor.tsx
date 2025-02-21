@@ -10,6 +10,7 @@ import TableHeader from '@tiptap/extension-table-header';
 import TableRow from '@tiptap/extension-table-row';
 import TaskItem from '@tiptap/extension-task-item';
 import TaskList from '@tiptap/extension-task-list';
+import Underline from '@tiptap/extension-underline';
 import { useEditorStore } from '@/store/use-editor-store';
 
 export const Editor = () => {
@@ -60,7 +61,8 @@ export const Editor = () => {
       TaskList,
       TaskItem.configure({
         nested: true
-      })
+      }),
+      Underline
     ],
     content: `
         <table>
