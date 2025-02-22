@@ -7,6 +7,7 @@ import FontFamily from '@tiptap/extension-font-family';
 import Highlight from '@tiptap/extension-highlight';
 import Image from '@tiptap/extension-image';
 import ImageResize from 'tiptap-extension-resize-image';
+import Link from '@tiptap/extension-link';
 import StarterKit from '@tiptap/starter-kit';
 import Table from '@tiptap/extension-table';
 import TableCell from '@tiptap/extension-table-cell';
@@ -63,6 +64,11 @@ export const Editor = () => {
       }),
       Image,
       ImageResize,
+      Link.configure({
+        openOnClick: true,
+        autolink: true,
+        defaultProtocol: 'https'
+      }),
       StarterKit,
       Table.configure({
         resizable: true

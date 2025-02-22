@@ -21,6 +21,8 @@ import FontFamilyButton from '@/components/fontFamilyButton';
 import HeadingLevelButton from '@/components/headingLevelButton';
 import TextColorButton from '@/components/textColorButton';
 import HighlightColorButton from '@/components/highlightColorButton';
+import ImageButton from '@/components/imageButton';
+import LinkButton from '@/components/linkButton';
 
 interface ToolbarButtonProps {
   onClick?: () => void;
@@ -155,29 +157,23 @@ export const Toolbar = () => {
         <ToolbarButton key={item.label} {...item} />
       ))}
       <Separator orientation="vertical" className="h-6 bg-neutral-400" />
-      {sections[1].map((item) => (
-        <ToolbarButton key={item.label} {...item} />
-      ))}
-      <Separator orientation="vertical" className="h-6 bg-neutral-400" />
-      {sections[2].map((item) => (
-        <ToolbarButton key={item.label} {...item} />
-      ))}
-      <Separator orientation="vertical" className="h-6 bg-neutral-400" />
-      {/* TODO: Font family */}
       <FontFamilyButton />
       <Separator orientation="vertical" className="h-6 bg-neutral-400" />
-      {/* TODO: Heading */}
       <HeadingLevelButton />
       <Separator orientation="vertical" className="h-6 bg-neutral-400" />
       {/* TODO: Font size */}
-      {/* TODO: Text Color */}
-      <TextColorButton />
       <Separator orientation="vertical" className="h-6 bg-neutral-400" />
-      {/* TODO: HIGHLIGHT COLOR */}
+      {sections[1].map((item) => (
+        <ToolbarButton key={item.label} {...item} />
+      ))}
+      <TextColorButton />
       <HighlightColorButton />
       <Separator orientation="vertical" className="h-6 bg-neutral-400" />
-      {/* TODO: Link */}
-      {/* TODO: Image */}
+      <LinkButton />
+      <ImageButton />
+      {sections[2].map((item) => (
+        <ToolbarButton key={item.label} {...item} />
+      ))}
       {/* TODO: Align */}
       {/* TODO: line height */}
       {/* TODO: List*/}

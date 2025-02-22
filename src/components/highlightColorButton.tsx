@@ -1,4 +1,3 @@
-'use client';
 import { type ColorResult, SketchPicker } from 'react-color';
 import {
   DropdownMenu,
