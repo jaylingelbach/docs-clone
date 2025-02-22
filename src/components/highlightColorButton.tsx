@@ -4,12 +4,6 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger
-} from '@/components/ui/tooltip';
 import { useEditorStore } from '@/store/use-editor-store';
 import { HighlighterIcon } from 'lucide-react';
 
@@ -22,16 +16,9 @@ const HighlightColorButton = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <button className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
-                <HighlighterIcon className="size-4" />
-              </button>
-            </TooltipTrigger>
-            <TooltipContent>Highlight</TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <button className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
+          <HighlighterIcon className="size-4" />
+        </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="p-0">
         <SketchPicker color={value} onChange={onChange} />
