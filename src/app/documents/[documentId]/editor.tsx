@@ -19,6 +19,7 @@ import TextAlign from '@tiptap/extension-text-align';
 import TextStyle from '@tiptap/extension-text-style';
 import Underline from '@tiptap/extension-underline';
 
+import { FontSizeExtension } from '@/extensions/font-size';
 import { useEditorStore } from '@/store/use-editor-store';
 
 export const Editor = () => {
@@ -60,6 +61,7 @@ export const Editor = () => {
       Code,
       Color,
       FontFamily,
+      FontSizeExtension,
       Highlight.configure({
         multicolor: true
       }),

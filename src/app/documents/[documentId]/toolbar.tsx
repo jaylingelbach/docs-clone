@@ -25,6 +25,7 @@ import ImageButton from '@/components/imageButton';
 import LinkButton from '@/components/linkButton';
 import AlignButton from '@/components/alignButton';
 import ListButton from '@/components/listButton';
+import FontSizeButton from '@/components/fontSizeButton';
 
 interface ToolbarButtonProps {
   onClick?: () => void;
@@ -163,7 +164,7 @@ export const Toolbar = () => {
       <Separator orientation="vertical" className="h-6 bg-neutral-400" />
       <HeadingLevelButton />
       <Separator orientation="vertical" className="h-6 bg-neutral-400" />
-      {/* TODO: Font size */}
+      <FontSizeButton />
       <Separator orientation="vertical" className="h-6 bg-neutral-400" />
       {sections[1].map((item) => (
         <ToolbarButton key={item.label} {...item} />
@@ -173,13 +174,14 @@ export const Toolbar = () => {
       <Separator orientation="vertical" className="h-6 bg-neutral-400" />
       <LinkButton />
       <ImageButton />
-      {sections[2].map((item) => (
-        <ToolbarButton key={item.label} {...item} />
-      ))}
 
       <AlignButton />
       {/* TODO: line height */}
       <ListButton />
+      {sections[2].map((item) => (
+        <ToolbarButton key={item.label} {...item} />
+      ))}
+      <Separator orientation="vertical" className="h-6 bg-neutral-400" />
     </div>
   );
 };
