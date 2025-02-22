@@ -26,6 +26,7 @@ import LinkButton from '@/components/linkButton';
 import AlignButton from '@/components/alignButton';
 import ListButton from '@/components/listButton';
 import FontSizeButton from '@/components/fontSizeButton';
+import LineHeightButton from '@/components/lineHeightButton';
 
 interface ToolbarButtonProps {
   onClick?: () => void;
@@ -165,6 +166,7 @@ export const Toolbar = () => {
       <HeadingLevelButton />
       <Separator orientation="vertical" className="h-6 bg-neutral-400" />
       <FontSizeButton />
+      {/* TODO: Kerning */}
       <Separator orientation="vertical" className="h-6 bg-neutral-400" />
       {sections[1].map((item) => (
         <ToolbarButton key={item.label} {...item} />
@@ -176,7 +178,7 @@ export const Toolbar = () => {
       <ImageButton />
 
       <AlignButton />
-      {/* TODO: line height */}
+      <LineHeightButton />
       <ListButton />
       {sections[2].map((item) => (
         <ToolbarButton key={item.label} {...item} />
