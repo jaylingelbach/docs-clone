@@ -5,6 +5,13 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger
+} from '@/components/ui/tooltip';
+
 import { type Level } from '@tiptap/extension-heading';
 
 import { useEditorStore } from '@/store/use-editor-store';
@@ -30,10 +37,17 @@ const HeadingLevelButton = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="h-7 min-w-7 shrink-0 flex items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
-          <span className="truncate">{getCurrentHeading()}</span>
-          <ChevronDownIcon className="ml-2 size-4 shrink-0" />
-        </button>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button className="h-7 min-w-7 shrink-0 flex items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
+                <span className="truncate">{getCurrentHeading()}</span>
+                <ChevronDownIcon className="ml-2 size-4 shrink-0" />
+              </button>
+            </TooltipTrigger>
+            <TooltipContent>Heading</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="p-1 flex flex-col gap-y-1">
         {headings.map(({ label, value, fontSize }) => (

@@ -101,9 +101,9 @@ body {
   /* Coding styles */
 
   code {
-    background-color: #dec9e9;
+    background-color: #5805ff0d;
     border-radius: 0.4rem;
-    color: var(--black);
+    color: #000000;
     font-size: 0.85rem;
     padding: 0.25em 0.3em;
   }

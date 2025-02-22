@@ -14,6 +14,11 @@ import {
   Undo2Icon
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger
+} from '@/components/ui/tooltip';
 import { Separator } from '@/components/ui/separator';
 
 import { useEditorStore } from '@/store/use-editor-store';
@@ -23,6 +28,9 @@ import TextColorButton from '@/components/textColorButton';
 import HighlightColorButton from '@/components/highlightColorButton';
 import ImageButton from '@/components/imageButton';
 import LinkButton from '@/components/linkButton';
+import AlignButton from '@/components/alignButton';
+import ListButton from '@/components/listButton';
+import { TooltipProvider } from '@radix-ui/react-tooltip';
 
 interface ToolbarButtonProps {
   onClick?: () => void;
@@ -30,24 +38,48 @@ interface ToolbarButtonProps {
   icon: LucideIcon;
 }
 
+// const ToolbarButton = ({
+//   onClick,
+//   isActive,
+//   icon: Icon
+// }: ToolbarButtonProps) => {
+//   return (
+//     <button
+//       onClick={onClick}
+//       className={cn(
+//         'text-small h-7 min-w-7 flex items-center justify-center rounded-sm hover:bg-neutral-200/80',
+//         isActive && 'bg-neutral-200/800'
+//       )}
+//     >
+//       <Icon className="size-4" />
+//     </button>
+//   );
+// };
 const ToolbarButton = ({
   onClick,
   isActive,
-  icon: Icon
-}: ToolbarButtonProps) => {
+  icon: Icon,
+  label
+}: ToolbarButtonProps & { label: string }) => {
   return (
-    <button
-      onClick={onClick}
-      className={cn(
-        'text-small h-7 min-w-7 flex items-center justify-center rounded-sm hover:bg-neutral-200/80',
-        isActive && 'bg-neutral-200/800'
-      )}
-    >
-      <Icon className="size-4" />
-    </button>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <button
+            onClick={onClick}
+            className={cn(
+              'text-small h-7 min-w-7 flex items-center justify-center rounded-sm hover:bg-neutral-200/80',
+              isActive && 'bg-neutral-200/800'
+            )}
+          >
+            <Icon className="size-4" />
+          </button>
+        </TooltipTrigger>
+        <TooltipContent>{label}</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 };
-
 export const Toolbar = () => {
   const { editor } = useEditorStore();
   const sections: {
@@ -154,7 +186,7 @@ export const Toolbar = () => {
   return (
     <div className="bg-[#F1F4F9] px-2.5 py-0.5 rounded-[24px] min-h-[40px] flex items-center gap-x-0.5 overflow-x-auto">
       {sections[0].map((item) => (
-        <ToolbarButton key={item.label} {...item} />
+        <ToolbarButton key={item.label} {...item} label={item.label} />
       ))}
       <Separator orientation="vertical" className="h-6 bg-neutral-400" />
       <FontFamilyButton />
@@ -164,7 +196,7 @@ export const Toolbar = () => {
       {/* TODO: Font size */}
       <Separator orientation="vertical" className="h-6 bg-neutral-400" />
       {sections[1].map((item) => (
-        <ToolbarButton key={item.label} {...item} />
+        <ToolbarButton key={item.label} {...item} label={item.label} />
       ))}
       <TextColorButton />
       <HighlightColorButton />
@@ -172,11 +204,12 @@ export const Toolbar = () => {
       <LinkButton />
       <ImageButton />
       {sections[2].map((item) => (
-        <ToolbarButton key={item.label} {...item} />
+        <ToolbarButton key={item.label} {...item} label={item.label} />
       ))}
-      {/* TODO: Align */}
+
+      <AlignButton />
       {/* TODO: line height */}
-      {/* TODO: List*/}
+      <ListButton />
     </div>
   );
 };

@@ -4,6 +4,13 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger
+} from '@/components/ui/tooltip';
+
 import { useEditorStore } from '@/store/use-editor-store';
 
 const TextColorButton = () => {
@@ -15,10 +22,20 @@ const TextColorButton = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
-          <span className="text-xs">A</span>
-          <div className="h-0.5 w-full" style={{ backgroundColor: value }} />
-        </button>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
+                <span className="text-xs">A</span>
+                <div
+                  className="h-0.5 w-full"
+                  style={{ backgroundColor: value }}
+                />
+              </button>
+            </TooltipTrigger>
+            <TooltipContent>Insert Link</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="p-0">
         <SketchPicker color={value} onChange={onChange} />

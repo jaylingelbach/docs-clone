@@ -13,10 +13,16 @@ import {
   DialogHeader,
   DialogTitle
 } from '@/components/ui/dialog';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger
+} from '@/components/ui/tooltip';
+
 import { Input } from './ui/input';
 import { ImageIcon, SearchIcon, UploadIcon } from 'lucide-react';
 import { useEditorStore } from '@/store/use-editor-store';
-import { set } from 'date-fns';
 
 const ImageButton = () => {
   const editor = useEditorStore((state) => state.editor);
@@ -57,9 +63,16 @@ const ImageButton = () => {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <button className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
-            <ImageIcon className="size-4" />
-          </button>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
+                  <ImageIcon className="size-4" />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent>Insert/Upload Image</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuItem
