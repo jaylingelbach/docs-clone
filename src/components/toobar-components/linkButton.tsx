@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
-import { Input } from './ui/input';
+import { Input } from '../ui/input';
 import { Link2Icon } from 'lucide-react';
 import { useEditorStore } from '@/store/use-editor-store';
 

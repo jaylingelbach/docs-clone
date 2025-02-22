@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,7 +13,7 @@ import {
   DialogHeader,
   DialogTitle
 } from '@/components/ui/dialog';
-import { Input } from './ui/input';
+import { Input } from '../ui/input';
 import { ImageIcon, SearchIcon, UploadIcon } from 'lucide-react';
 import { useEditorStore } from '@/store/use-editor-store';
 

@@ -17,16 +17,16 @@ import { cn } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
 
 import { useEditorStore } from '@/store/use-editor-store';
-import FontFamilyButton from '@/components/fontFamilyButton';
-import HeadingLevelButton from '@/components/headingLevelButton';
-import TextColorButton from '@/components/textColorButton';
-import HighlightColorButton from '@/components/highlightColorButton';
-import ImageButton from '@/components/imageButton';
-import LinkButton from '@/components/linkButton';
-import AlignButton from '@/components/alignButton';
-import ListButton from '@/components/listButton';
-import FontSizeButton from '@/components/fontSizeButton';
-import LineHeightButton from '@/components/lineHeightButton';
+import FontFamilyButton from '@/components/toobar-components/fontFamilyButton';
+import HeadingLevelButton from '@/components/toobar-components/headingLevelButton';
+import TextColorButton from '@/components/toobar-components/textColorButton';
+import HighlightColorButton from '@/components/toobar-components/highlightColorButton';
+import ImageButton from '@/components/toobar-components/imageButton';
+import LinkButton from '@/components/toobar-components/linkButton';
+import AlignButton from '@/components/toobar-components/alignButton';
+import ListButton from '@/components/toobar-components/listButton';
+import FontSizeButton from '@/components/toobar-components/fontSizeButton';
+import LineHeightButton from '@/components/toobar-components/lineHeightButton';
 
 interface ToolbarButtonProps {
   onClick?: () => void;
