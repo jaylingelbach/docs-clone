@@ -18,7 +18,7 @@ export const Ruler = () => {
   const handleRightMouseDown = () => {
     setIsDraggingRight(true);
   };
-
+  // comment for vercel deploy.
   const handleMouseMove = (e: React.MouseEvent) => {
     const PAGE_WIDTH = 816;
     const MINIMUM_SPACE = 50;
