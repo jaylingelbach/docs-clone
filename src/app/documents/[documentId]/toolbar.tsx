@@ -43,8 +43,8 @@ const ToolbarButton = ({
     <button
       onClick={onClick}
       className={cn(
-        'text-small h-7 min-w-7 flex items-center justify-center rounded-sm hover:bg-neutral-200/80',
-        isActive && 'bg-neutral-200/800'
+        'text-sm h-7 min-w-7 flex items-center justify-center rounded-sm hover:bg-neutral-200/80',
+        isActive && 'bg-neutral-200/80'
       )}
     >
       <Icon className="size-4" />

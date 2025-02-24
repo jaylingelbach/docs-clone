@@ -1,5 +1,25 @@
 'use client';
 
+import { memo, useCallback, useMemo } from 'react';
+import { BsFilePdf } from 'react-icons/bs';
+import {
+  BoldIcon,
+  FileIcon,
+  FileJsonIcon,
+  FilePenIcon,
+  FilePlusIcon,
+  FileTextIcon,
+  GlobeIcon,
+  ItalicIcon,
+  PrinterIcon,
+  Redo2Icon,
+  RemoveFormattingIcon,
+  StrikethroughIcon,
+  TextIcon,
+  TrashIcon,
+  UnderlineIcon,
+  Undo2Icon
+} from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -16,42 +36,59 @@ import {
 } from '@/components/ui/menubar';
 
 import DocumentInput from './document-input';
-import {
-  BoldIcon,
-  FileIcon,
-  FileJsonIcon,
-  FilePenIcon,
-  FilePlusIcon,
-  FileTextIcon,
-  GlobeIcon,
-  HighlighterIcon,
-  ItalicIcon,
-  Menu,
-  PrinterIcon,
-  Redo2Icon,
-  RemoveFormattingIcon,
-  StrikethroughIcon,
-  TextIcon,
-  TrashIcon,
-  UnderlineIcon,
-  Undo2Icon
-} from 'lucide-react';
-import { BsFilePdf } from 'react-icons/bs';
-export const Navbar = () => {
-  const tableOptions = [
-    {
-      label: '1 x 1'
+import { useEditorStore } from '@/store/use-editor-store';
+
+export const Navbar = memo(() => {
+  const { editor } = useEditorStore();
+
+  const insertTable = useCallback(
+    ({ rows, cols }: { rows: number; cols: number }) => {
+      editor
+        ?.chain()
+        .focus()
+        .insertTable({ rows, cols, withHeaderRow: false })
+        .run();
     },
-    {
-      label: '2 x 2'
-    },
-    {
-      label: '3 x 3'
-    },
-    {
-      label: '4 x 4'
-    }
-  ];
+    [editor]
+  );
+
+  const handleRedo = useCallback(() => {
+    editor?.chain().focus().undo().run();
+  }, [editor]);
+
+  const handleUndo = useCallback(() => {
+    editor?.chain().focus().redo().run();
+  }, [editor]);
+
+  const handleBold = useCallback(() => {
+    editor?.chain().focus().toggleBold().run();
+  }, [editor]);
+
+  const handleItalic = useCallback(() => {
+    editor?.chain().focus().toggleItalic().run();
+  }, [editor]);
+
+  const handleUnderline = useCallback(() => {
+    editor?.chain().focus().toggleUnderline().run();
+  }, [editor]);
+
+  const handleStrikeThrough = useCallback(() => {
+    editor?.chain().focus().toggleStrike().run();
+  }, [editor]);
+
+  const handleClearFormatting = useCallback(() => {
+    editor?.chain().focus().unsetAllMarks().run();
+  }, [editor]);
+
+  const tableOptions = useMemo(
+    () => [
+      { label: '1 x 1', value: 1 },
+      { label: '2 x 2', value: 2 },
+      { label: '3 x 3', value: 3 },
+      { label: '4 x 4', value: 4 }
+    ],
+    []
+  );
   return (
     <nav className="flex items-center justify-between">
       <div className="flex items-center gap-x-2">
@@ -117,11 +154,11 @@ export const Navbar = () => {
                 <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted h-auto">
                   Edit
                   <MenubarContent>
-                    <MenubarItem>
+                    <MenubarItem onClick={handleUndo}>
                       <Undo2Icon className="size-4 mr-2" />
                       Undo <MenubarShortcut>⌘ + Z</MenubarShortcut>
                     </MenubarItem>
-                    <MenubarItem>
+                    <MenubarItem onClick={handleRedo}>
                       <Redo2Icon className="size-4 mr-2" />
                       Redo <MenubarShortcut>⌘ + Y</MenubarShortcut>
                     </MenubarItem>
@@ -139,8 +176,15 @@ export const Navbar = () => {
                     <MenubarSubTrigger>Table</MenubarSubTrigger>
                     <MenubarSubContent>
                       {/* dynamically render via table options */}
-                      {tableOptions.map(({ label }, index) => (
-                        <MenubarItem key={index}> {label}</MenubarItem>
+                      {tableOptions.map(({ label, value }, index) => (
+                        <MenubarItem
+                          key={index}
+                          onClick={() =>
+                            insertTable({ rows: value, cols: value })
+                          }
+                        >
+                          {label}
+                        </MenubarItem>
                       ))}
                     </MenubarSubContent>
                   </MenubarSub>
@@ -158,26 +202,26 @@ export const Navbar = () => {
                       Text
                     </MenubarSubTrigger>
                     <MenubarSubContent>
-                      <MenubarItem>
+                      <MenubarItem onClick={handleBold}>
                         <BoldIcon className="size-4 mr-2" />
                         Bold <MenubarShortcut>⌘ + B</MenubarShortcut>
                       </MenubarItem>
-                      <MenubarItem>
+                      <MenubarItem onClick={handleUnderline}>
                         <ItalicIcon className="size-4 mr-2" />
                         Italic <MenubarShortcut>⌘ + I</MenubarShortcut>
                       </MenubarItem>
-                      <MenubarItem>
+                      <MenubarItem onClick={handleUnderline}>
                         <UnderlineIcon className="size-4 mr-2" />
                         Underline <MenubarShortcut>⌘ + U</MenubarShortcut>
                       </MenubarItem>
-                      <MenubarItem>
+                      <MenubarItem onClick={handleStrikeThrough}>
                         <StrikethroughIcon className="size-4 mr-2" />
                         Strikethrough &nbsp;&nbsp;
                         <MenubarShortcut>⌘ + S</MenubarShortcut>
                       </MenubarItem>
                     </MenubarSubContent>
                   </MenubarSub>
-                  <MenubarItem>
+                  <MenubarItem onClick={handleClearFormatting}>
                     <RemoveFormattingIcon className="size-4 mr-2" />
                     Clear Formatting
                   </MenubarItem>
@@ -189,5 +233,5 @@ export const Navbar = () => {
       </div>
     </nav>
   );
-};
+});
 export default Navbar;

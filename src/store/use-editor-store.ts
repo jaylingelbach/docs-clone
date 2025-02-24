@@ -1,12 +1,14 @@
 import { create } from 'zustand';
+import { shallow } from 'zustand/shallow';
 import type { Editor } from '@tiptap/react';
 
 interface EditorState {
   editor: Editor | null;
-  setEditor: (editor: Editor | null) => void; // Allow null for cleanup
+  setEditor: (editor: Editor | null) => void;
 }
 
 export const useEditorStore = create<EditorState>((set) => ({
   editor: null,
-  setEditor: (editor) => set({ editor })
+  setEditor: (editor) => set({ editor }),
+  shallow
 }));
