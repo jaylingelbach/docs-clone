@@ -23,5 +23,5 @@ const Navbar = () => {
     </nav>
   );
 };
-
+// comment for push
 export default Navbar;
