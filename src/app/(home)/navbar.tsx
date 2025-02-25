@@ -12,7 +12,7 @@ const Navbar = () => {
         </Link>
         <h3 className="text-xl">Brown Bear Docs</h3>
       </div>
-      <Suspense>
+      <Suspense fallback={<div>Loading...</div>}>
         <SearchInput />
       </Suspense>
       {/* <div/> later will be login logout.... */}
