@@ -7,6 +7,7 @@ import { usePaginatedQuery } from 'convex/react';
 
 import Navbar from './navbar';
 import { DocumentsTable } from './documents-table';
+import TemplatesGallery from './templates-gallery';
 
 const Home = () => {
   const { results, status, loadMore } = usePaginatedQuery(
@@ -21,6 +22,7 @@ const Home = () => {
         <Navbar />
       </div>
       <div className="mt-16">
+        <TemplatesGallery />
         <DocumentsTable
           documents={results}
           loadMore={loadMore}
