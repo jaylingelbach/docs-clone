@@ -1,5 +1,8 @@
 'use client';
 import { useState } from 'react';
+import { useMutation } from 'convex/react';
+import { useRouter } from 'next/navigation';
+
 import {
   Carousel,
   CarouselContent,
@@ -10,9 +13,25 @@ import {
 import { cn } from '@/lib/utils';
 
 import { templates } from '@/constants/templates';
-
+import { api } from '../../../convex/_generated/api';
 export const TemplatesGallery = () => {
   const [isCreating, setIsCreating] = useState(false);
+
+  const router = useRouter();
+  // Mutation objects can be called like functions to request execution of the corresponding Convex function, or further configured with optimistic updates.
+  // The value returned by this hook is stable across renders, so it can be used by React dependency arrays and memoization logic relying on object identity without causing rerenders.
+  const create = useMutation(api.documents.create);
+
+  const onTemplateClick = async (title: string, initialContent: string) => {
+    setIsCreating(true);
+    create({ title, initialContent })
+      .then((documentId) => {
+        router.push(`/documents/${documentId}`);
+      })
+      .finally(() => {
+        setIsCreating(false);
+      });
+  };
 
   return (
     <div className="bg-[#F1F3F4]">
@@ -33,10 +52,8 @@ export const TemplatesGallery = () => {
                 >
                   <button
                     disabled={isCreating}
-                    // TODO: Add proper initial content
-                    onClick={() =>
-                      console.log('Creating document from template:', template)
-                    }
+                    // TODO: Add initial content
+                    onClick={() => onTemplateClick(template.label, '')}
                     style={{
                       backgroundImage: `url(${template.imageUrl})`,
                       backgroundSize: 'cover',
