@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import SearchInput from './search-input';
+import { SearchInput } from './search-input';
+import { Suspense } from 'react';
 
 const Navbar = () => {
   return (
@@ -11,7 +12,9 @@ const Navbar = () => {
         </Link>
         <h3 className="text-xl">Brown Bear Docs</h3>
       </div>
-      <SearchInput />
+      <Suspense>
+        <SearchInput />
+      </Suspense>
       {/* <div/> later will be login logout.... */}
       <div />
     </nav>
