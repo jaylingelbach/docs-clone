@@ -1,7 +1,10 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { SearchInput } from './search-input';
 import { Suspense } from 'react';
+
+import Image from 'next/image';
+import Link from 'next/link';
+import { UserButton } from '@clerk/nextjs';
+
+import { SearchInput } from './search-input';
 
 const Navbar = () => {
   return (
@@ -16,7 +19,7 @@ const Navbar = () => {
         <SearchInput />
       </Suspense>
       {/* <div/> later will be login logout.... */}
-      <div />
+      <UserButton />
     </nav>
   );
 };
