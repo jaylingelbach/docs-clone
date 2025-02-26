@@ -12,6 +12,7 @@ import {
   CarouselPrevious
 } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
+import { toast } from 'sonner';
 
 import { templates } from '@/constants/templates';
 import { api } from '../../../convex/_generated/api';
@@ -28,6 +29,10 @@ export const TemplatesGallery = () => {
     create({ title, initialContent })
       .then((documentId) => {
         router.push(`/documents/${documentId}`);
+        toast.success('Document successfully created');
+      })
+      .catch(() => {
+        toast.error('Something went wrong');
       })
       .finally(() => {
         setIsCreating(false);

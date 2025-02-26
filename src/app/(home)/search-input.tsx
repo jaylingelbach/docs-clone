@@ -5,6 +5,7 @@ import { SearchIcon, XIcon } from 'lucide-react';
 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { OrganizationSwitcher } from '@clerk/nextjs';
 import { useSearchParam } from '@/hooks/use-search-param';
 
 export const SearchInput = () => {
