@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { UserButton } from '@clerk/nextjs';
+import { UserButton, OrganizationSwitcher } from '@clerk/nextjs';
 
 import { SearchInput } from './search-input';
 
@@ -18,10 +18,11 @@ const Navbar = () => {
       <Suspense fallback={<div>Loading...</div>}>
         <SearchInput />
       </Suspense>
-      {/* <div/> later will be login logout.... */}
-      <UserButton />
+      <div className="flex gap-3 items-center">
+        <OrganizationSwitcher />
+        <UserButton />
+      </div>
     </nav>
   );
 };
-// comment for push
 export default Navbar;
