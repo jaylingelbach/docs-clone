@@ -18,8 +18,13 @@ const Navbar = () => {
       <Suspense fallback={<div>Loading...</div>}>
         <SearchInput />
       </Suspense>
-      <div className="flex gap-3 items-center">
-        <OrganizationSwitcher />
+      <div className="flex gap-3 items-center pl-6">
+        <OrganizationSwitcher
+          afterCreateOrganizationUrl="/"
+          afterLeaveOrganizationUrl="/"
+          afterSelectOrganizationUrl=""
+          afterSelectPersonalUrl=""
+        />
         <UserButton />
       </div>
     </nav>

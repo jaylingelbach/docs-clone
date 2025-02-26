@@ -36,6 +36,7 @@ import {
 } from '@/components/ui/menubar';
 
 import DocumentInput from './document-input';
+import { OrganizationSwitcher, UserButton } from '@clerk/nextjs';
 import { useEditorStore } from '@/store/use-editor-store';
 
 export const Navbar = memo(() => {
@@ -265,6 +266,15 @@ export const Navbar = memo(() => {
             </Menubar>
           </div>
         </div>
+      </div>
+      <div className="flex gap-3 items-center pl-6">
+        <OrganizationSwitcher
+          afterCreateOrganizationUrl="/"
+          afterLeaveOrganizationUrl="/"
+          afterSelectOrganizationUrl=""
+          afterSelectPersonalUrl=""
+        />
+        <UserButton />
       </div>
     </nav>
   );

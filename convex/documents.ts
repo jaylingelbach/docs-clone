@@ -8,19 +8,45 @@ export const get = query({
     search: v.optional(v.string())
   },
   handler: async (ctx, { search, paginationOpts }) => {
-    // separate queries for search and no search
     const user = await ctx.auth.getUserIdentity();
+
     if (!user) {
       throw new ConvexError('Unauthorized');
     }
-    if (search) {
-      return await ctx.db
+
+    const organizationId = user.organization_id as string | undefined;
+
+    // Search within organization
+    if (search && organizationId) {
+      return ctx.db
         .query('documents')
         .withSearchIndex('search_title', (q) =>
-          q.search('title', search).eq('ownerId', user.subject)
+          q.search('title', search).eq('organizationId', organizationId)
         )
         .paginate(paginationOpts);
     }
+
+    // Personal account search
+    if (search) {
+      return await ctx.db
+        .query('documents')
+        .withSearchIndex('search_title', (q) => {
+          return q.search('title', search).eq('ownerId', user.subject);
+        })
+        .paginate(paginationOpts);
+    }
+
+    // All docs inside organization
+    if (organizationId) {
+      return await ctx.db
+        .query('documents')
+        .withIndex('by_organization_id', (q) =>
+          q.eq('organizationId', organizationId)
+        )
+        .paginate(paginationOpts);
+    }
+
+    // All personal docs
     return await ctx.db
       .query('documents')
       .withIndex('by_owner_id', (q) => q.eq('ownerId', user.subject))
@@ -37,13 +63,16 @@ export const create = mutation({
     const user = await ctx.auth.getUserIdentity();
 
     if (!user) {
-      throw new ConvexError('Unauthorized');
+      throw new ConvexError('Unathorized');
     }
 
-    return await ctx.db.insert('documents', {
+    const organizationId = user.organization_id as string | undefined;
+
+    return ctx.db.insert('documents', {
       title: args.title ?? 'Untitled document',
-      initialContent: args.initialContent,
-      ownerId: user.subject
+      ownerId: user.subject,
+      organizationId,
+      initialContent: args.initialContent
     });
   }
 });
@@ -56,13 +85,23 @@ export const removeById = mutation({
     if (!user) {
       throw new ConvexError('Unauthorized');
     }
+
+    const organizationId = user.organization_id as string | undefined;
+    const organizationRole = user.organization_role as string | undefined;
+
     const document = await ctx.db.get(args.id);
+
     if (!document) {
       throw new ConvexError('Document not found');
     }
-    if (document.ownerId !== user.subject) {
+
+    const isOwner = document.ownerId === user.subject;
+    const isAdmin = organizationRole === 'admin';
+
+    if (!isOwner && !isAdmin) {
       throw new ConvexError('Unauthorized');
     }
+
     return await ctx.db.delete(args.id);
   }
 });
@@ -78,13 +117,22 @@ export const updateById = mutation({
     if (!user) {
       throw new ConvexError('Unauthorized');
     }
+
+    const organizationId = user.organization_id as string | undefined;
+
     const document = await ctx.db.get(args.id);
+
     if (!document) {
       throw new ConvexError('Document not found');
     }
-    if (document.ownerId !== user.subject) {
+
+    const isOwner = document?.ownerId === user.subject;
+    const isOrganizationMember = document?.organizationId === organizationId;
+
+    if (!isOwner && !isOrganizationMember) {
       throw new ConvexError('Unauthorized');
     }
+
     return await ctx.db.patch(args.id, { title: args.title });
   }
 });
