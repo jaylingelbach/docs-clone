@@ -49,8 +49,7 @@ export async function POST(req: Request) {
     userInfo: {
       name:
         user.fullName ?? user.primaryEmailAddress?.emailAddress ?? 'Anonymous',
-      avatar: user.imageUrl,
-      color
+      avatar: user.imageUrl
     }
   });
   session.allow(room, session.FULL_ACCESS);
