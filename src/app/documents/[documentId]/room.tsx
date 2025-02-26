@@ -41,7 +41,7 @@ export function Room({ children }: { children: ReactNode }) {
       authEndpoint="/api/liveblocks-auth"
       resolveUsers={({ userIds }) => {
         return userIds.map(
-          (userId) => users.find((user) => user.id === userId) ?? 'undefined'
+          (userId) => users.find((user) => user.id === userId) ?? undefined
         );
       }}
       resolveMentionSuggestions={({ text }) => {
