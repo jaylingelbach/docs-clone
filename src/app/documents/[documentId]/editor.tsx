@@ -1,8 +1,8 @@
 'use client';
 
-import { useEditor, EditorContent } from '@tiptap/react';
 import Code from '@tiptap/extension-code';
 import { Color } from '@tiptap/extension-color';
+import { useEditor, EditorContent } from '@tiptap/react';
 import FontFamily from '@tiptap/extension-font-family';
 import Highlight from '@tiptap/extension-highlight';
 import Image from '@tiptap/extension-image';
@@ -18,14 +18,20 @@ import TaskList from '@tiptap/extension-task-list';
 import TextAlign from '@tiptap/extension-text-align';
 import TextStyle from '@tiptap/extension-text-style';
 import Underline from '@tiptap/extension-underline';
+import { useLiveblocksExtension } from '@liveblocks/react-tiptap';
 
 import { FontSizeExtension } from '@/extensions/font-size';
 import { LineHeightExtension } from '@/extensions/line-height';
 import { Ruler } from './ruler';
 import { useEditorStore } from '@/store/use-editor-store';
+import { Threads } from './threads';
 
 export const Editor = () => {
   const { setEditor } = useEditorStore();
+
+  const liveblocks = useLiveblocksExtension({
+    offlineSupport_experimental: true
+  });
 
   const editor = useEditor({
     immediatelyRender: false,
@@ -61,7 +67,6 @@ export const Editor = () => {
       }
     },
     extensions: [
-      Code,
       Color,
       FontFamily,
       FontSizeExtension,
@@ -76,7 +81,10 @@ export const Editor = () => {
         autolink: true,
         defaultProtocol: 'https'
       }),
-      StarterKit,
+      liveblocks,
+      StarterKit.configure({
+        history: false
+      }),
       Table.configure({
         resizable: true
       }),
@@ -96,10 +104,13 @@ export const Editor = () => {
   });
 
   return (
-    <div className="size-full overflow-x-auto bg-[#F9FBFD] px-4 print:px-0 print:bg-white print:overflow-visible">
+    <div className="size-full overflow-x-auto bg-editor-bg px-4 print:p-0 print:bg-white print:overflow-visible">
       <Ruler />
       <div className="min-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0">
         <EditorContent editor={editor} />
+        <Threads editor={editor} />
+        {/* TODO: add floating toolbar editor from liveblocks. example in docs need to configure bold italic etc */}
+        {/* <FloatingToolbar editor={editor} /> */}
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import {
   ItalicIcon,
   ListTodoIcon,
   LucideIcon,
-  MessageSquarePlus,
+  MessageSquarePlusIcon,
   PrinterIcon,
   Redo2Icon,
   RemoveFormattingIcon,
@@ -54,6 +54,7 @@ const ToolbarButton = ({
 
 export const Toolbar = () => {
   const { editor } = useEditorStore();
+
   const sections: {
     label: string;
     icon: LucideIcon;
@@ -124,34 +125,26 @@ export const Toolbar = () => {
     [
       {
         label: 'Comment',
-        icon: MessageSquarePlus,
-        onClick: () => {
-          console.log('Todo Comment');
-        },
-        isActive: false //TODO: Implement.
+        icon: MessageSquarePlusIcon,
+        onClick: () => editor?.chain().focus().addPendingComment().run(),
+        isActive: editor?.isActive('liveblocksCommentMark')
       },
       {
         label: 'List Todo',
         icon: ListTodoIcon,
-        onClick: () => {
-          editor?.chain().focus().toggleTaskList().run();
-        },
+        onClick: () => editor?.chain().focus().toggleTaskList().run(),
         isActive: editor?.isActive('taskList') //TODO: Implement.
       },
       {
         label: 'Code',
         icon: Code2Icon,
         isActive: editor?.isActive('codeBlock'),
-        onClick: () => {
-          editor?.chain().focus().toggleCode().run();
-        }
+        onClick: () => editor?.chain().focus().toggleCode().run()
       },
       {
         label: 'Remove Formatting',
         icon: RemoveFormattingIcon,
-        onClick: () => {
-          editor?.chain().focus().unsetAllMarks().run();
-        }
+        onClick: () => editor?.chain().focus().unsetAllMarks().run()
       }
     ]
   ];
