@@ -1,10 +1,14 @@
 'use server';
 
+import { api } from '../../../../convex/_generated/api';
 import { auth, clerkClient } from '@clerk/nextjs/server';
+import { ConvexHttpClient } from 'convex/browser';
+import { Id } from '../../../../convex/_generated/dataModel';
+
+const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
 export async function getUsers() {
   const { sessionClaims } = await auth();
-  console.log({ sessionClaims }, 'sessionClaims');
   const clerk = await clerkClient();
 
   // Get users for specific organization
@@ -19,4 +23,8 @@ export async function getUsers() {
     avatar: user.imageUrl
   }));
   return users;
+}
+
+export async function getDocuments(ids: Id<'documents'>[]) {
+  return await convex.query(api.documents.getByIds, { ids });
 }
