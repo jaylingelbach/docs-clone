@@ -27,16 +27,23 @@ import { useStorage } from '@liveblocks/react/suspense';
 import { LEFT_MARGIN_DEFAULT, RIGHT_MARGIN_DEFAULT } from '@/constants/margins';
 import { Ruler } from './ruler';
 import { Threads } from './threads';
+import { PAPER_WIDTH_DEFAULT } from '@/constants/paper';
 
-export const Editor = () => {
+interface EditorProps {
+  initialContent?: string | undefined;
+}
+
+export const Editor = ({ initialContent }: EditorProps) => {
   const leftMargin =
     useStorage((root) => root.leftMargin) ?? LEFT_MARGIN_DEFAULT;
+
   const rightMargin =
     useStorage((root) => root.rightMargin) ?? RIGHT_MARGIN_DEFAULT;
 
   const { setEditor } = useEditorStore();
 
   const liveblocks = useLiveblocksExtension({
+    initialContent,
     offlineSupport_experimental: true
   });
 
@@ -69,8 +76,7 @@ export const Editor = () => {
     editorProps: {
       attributes: {
         style: `padding-left: ${leftMargin}px; padding-right: ${rightMargin}px;`,
-        class:
-          'focus:outline-none print:border-0 bg-white border border-[#C7C7C7] flex flex-col min-h-[1054px] w-[816px] pt-10 pr-14 pb-10 cursor-text'
+        class: `focus:outline-none print:border-0 bg-white border border-[#C7C7C7] flex flex-col min-h-[1054px] w-[${PAPER_WIDTH_DEFAULT}px] pt-10 pr-14 pb-10 cursor-text`
       }
     },
     extensions: [
@@ -113,7 +119,9 @@ export const Editor = () => {
   return (
     <div className="size-full overflow-x-auto bg-editor-bg px-4 print:p-0 print:bg-white print:overflow-visible">
       <Ruler />
-      <div className="min-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0">
+      <div
+        className={`min-w-max flex justify-center w-[${PAPER_WIDTH_DEFAULT}px] py-4 print:py-0 mx-auto print:w-full print:min-w-0`}
+      >
         <EditorContent editor={editor} />
         <Threads editor={editor} />
         {/* TODO: add floating toolbar editor from liveblocks. example in docs need to configure bold italic etc */}

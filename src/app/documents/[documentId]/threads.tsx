@@ -4,9 +4,18 @@ import {
   FloatingComposer,
   FloatingThreads
 } from '@liveblocks/react-tiptap';
+import { ClientSideSuspense } from '@liveblocks/react';
 import { Editor } from '@tiptap/react';
 
-export function Threads({ editor }: { editor: Editor | null }) {
+export const Threads = ({ editor }: { editor: Editor | null }) => {
+  return (
+    <ClientSideSuspense fallback={<></>}>
+      <ThreadsList editor={editor} />
+    </ClientSideSuspense>
+  );
+};
+
+export function ThreadsList({ editor }: { editor: Editor | null }) {
   const { threads } = useThreads({ query: { resolved: false } });
 
   return (

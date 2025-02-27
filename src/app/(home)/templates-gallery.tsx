@@ -16,23 +16,19 @@ import { toast } from 'sonner';
 
 import { templates } from '@/constants/templates';
 import { api } from '../../../convex/_generated/api';
+
 export const TemplatesGallery = () => {
+  const router = useRouter();
+  const create = useMutation(api.documents.create);
   const [isCreating, setIsCreating] = useState(false);
 
-  const router = useRouter();
-  // Mutation objects can be called like functions to request execution of the corresponding Convex function, or further configured with optimistic updates.
-  // The value returned by this hook is stable across renders, so it can be used by React dependency arrays and memoization logic relying on object identity without causing rerenders.
-  const create = useMutation(api.documents.create);
-
-  const onTemplateClick = async (title: string, initialContent: string) => {
+  const onTemplateClick = (title: string, initialContent: string) => {
     setIsCreating(true);
     create({ title, initialContent })
+      .catch(() => toast.error('Something went wrong'))
       .then((documentId) => {
-        router.push(`/documents/${documentId}`);
-        toast.success('Document successfully created');
-      })
-      .catch(() => {
-        toast.error('Something went wrong');
+        toast.success('Document created');
+        router.push(`documents/${documentId}`);
       })
       .finally(() => {
         setIsCreating(false);
@@ -58,8 +54,10 @@ export const TemplatesGallery = () => {
                 >
                   <button
                     disabled={isCreating}
-                    // TODO: Add initial content
-                    onClick={() => onTemplateClick(template.label, '')}
+                    // TODO: Add proper initial content
+                    onClick={() =>
+                      onTemplateClick(template.label, template.initialContent)
+                    }
                     style={{
                       backgroundImage: `url(${template.imageUrl})`,
                       backgroundSize: 'cover',
@@ -82,5 +80,3 @@ export const TemplatesGallery = () => {
     </div>
   );
 };
-
-export default TemplatesGallery;

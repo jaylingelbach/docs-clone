@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { LEFT_MARGIN_DEFAULT, RIGHT_MARGIN_DEFAULT } from '@/constants/margins';
 import Marker from '../../../components/marker';
 import { useStorage, useMutation } from '@liveblocks/react';
+import { PAPER_WIDTH_DEFAULT } from '@/constants/paper';
 
 const markers = Array.from({ length: 83 }, (_, i) => i);
 
@@ -34,7 +35,7 @@ export const Ruler = () => {
   };
   // comment for vercel deploy.
   const handleMouseMove = (e: React.MouseEvent) => {
-    const PAGE_WIDTH = 816;
+    const PAGE_WIDTH = PAPER_WIDTH_DEFAULT;
     const MINIMUM_SPACE = 50;
 
     if ((isDraggingLeft || isDraggingRight) && rulerRef.current) {
@@ -66,11 +67,11 @@ export const Ruler = () => {
   };
 
   const handleLeftDoubleClick = () => {
-    setLeftMargin(56);
+    setLeftMargin(LEFT_MARGIN_DEFAULT);
   };
 
   const handleRightDoubleClick = () => {
-    setRightMargin(56);
+    setRightMargin(RIGHT_MARGIN_DEFAULT);
   };
 
   return (
@@ -79,7 +80,7 @@ export const Ruler = () => {
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
-      className="w-[816px] mx-auto h-6 border-b border-gray-300 flex items-end relative select-none print:hidden"
+      className={`w-[${PAPER_WIDTH_DEFAULT}px] mx-auto h-6 border-b border-gray-300 flex items-end relative select-none print:hidden`}
     >
       <div id="ruler-container" className="w-full h-full relative">
         <Marker
@@ -98,9 +99,9 @@ export const Ruler = () => {
         />
 
         <div className="absolute inset-x-0 bottom-0 h-full">
-          <div className="relative h-full w-[816px]">
+          <div className={`relative h-full w-[${PAPER_WIDTH_DEFAULT}px]`}>
             {markers.map((marker) => {
-              const position = (marker * 816) / 82;
+              const position = (marker * PAPER_WIDTH_DEFAULT) / 82;
 
               return (
                 <div
