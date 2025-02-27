@@ -1,11 +1,25 @@
 import { useRef, useState } from 'react';
+import { LEFT_MARGIN_DEFAULT, RIGHT_MARGIN_DEFAULT } from '@/constants/margins';
 import Marker from '../../../components/marker';
+import { useStorage, useMutation } from '@liveblocks/react';
 
 const markers = Array.from({ length: 83 }, (_, i) => i);
 
 export const Ruler = () => {
-  const [leftMargin, setLeftMargin] = useState(56);
-  const [rightMargin, setRightMargin] = useState(56);
+  // using liveblocks to manage the margin's state. these are custom hooks provided by liveblocks.
+  const leftMargin =
+    useStorage((root) => root.leftMargin) ?? LEFT_MARGIN_DEFAULT;
+
+  const setLeftMargin = useMutation(({ storage }, position: number) => {
+    storage.set('leftMargin', position);
+  }, []);
+
+  const rightMargin =
+    useStorage((root) => root.rightMargin) ?? RIGHT_MARGIN_DEFAULT;
+
+  const setRightMargin = useMutation(({ storage }, position: number) => {
+    storage.set('rightMargin', position);
+  }, []);
 
   const [isDraggingLeft, setIsDraggingLeft] = useState(false);
   const [isDraggingRight, setIsDraggingRight] = useState(false);
