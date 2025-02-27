@@ -14,7 +14,7 @@ import { getDocuments, getUsers } from './actions';
 import { Id } from '../../../../convex/_generated/dataModel';
 import { toast } from 'sonner';
 
-type User = { id: string; name: string; avatar: string };
+type User = { id: string; name: string; avatar: string; color: string };
 
 export function Room({ children }: { children: ReactNode }) {
   //   get documentId from the URL
