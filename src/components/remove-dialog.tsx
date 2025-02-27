@@ -1,11 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { useMutation } from 'convex/react';
-import { api } from '../../convex/_generated/api';
-import { Id } from '../../convex/_generated/dataModel';
-import { toast } from 'sonner';
 
+import { api } from '../../convex/_generated/api';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,6 +14,10 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger
 } from '@/components/ui/alert-dialog';
+import { Id } from '../../convex/_generated/dataModel';
+import { toast } from 'sonner';
+import { useMutation } from 'convex/react';
+// import { useRouter } from 'next/navigation';
 
 interface RemoveDialogProps {
   documentId: Id<'documents'>;
@@ -34,6 +35,8 @@ export const RemoveDialog = ({ documentId, children }: RemoveDialogProps) => {
       .catch(() => toast.error('Something went wrong'))
       .then(() => {
         toast.success('Document successfully deleted');
+        // TODO: use loading screen. router push is not working due to catch firing faster than then.
+        window.location.href = '/';
       })
       .finally(() => {
         setIsRemoving(false);
