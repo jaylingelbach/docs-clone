@@ -23,6 +23,11 @@ import Underline from '@tiptap/extension-underline';
 import { useEditorStore } from '@/store/use-editor-store';
 import { useLiveblocksExtension } from '@liveblocks/react-tiptap';
 import { useStorage } from '@liveblocks/react/suspense';
+import {
+  FloatingToolbar,
+  FloatingComposer,
+  FloatingThreads
+} from '@liveblocks/react-tiptap';
 
 import { LEFT_MARGIN_DEFAULT, RIGHT_MARGIN_DEFAULT } from '@/constants/margins';
 import { Ruler } from './ruler';
@@ -126,7 +131,8 @@ export const Editor = ({ initialContent }: EditorProps) => {
         <EditorContent editor={editor} />
         <Threads editor={editor} />
         {/* TODO: add floating toolbar editor from liveblocks. example in docs need to configure bold italic etc */}
-        {/* <FloatingToolbar editor={editor} /> */}
+        <FloatingToolbar editor={editor} />
+        <FloatingComposer editor={editor} />
       </div>
     </div>
   );
