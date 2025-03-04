@@ -22,12 +22,14 @@ import TextStyle from '@tiptap/extension-text-style';
 import Underline from '@tiptap/extension-underline';
 import { useEditorStore } from '@/store/use-editor-store';
 import { useLiveblocksExtension } from '@liveblocks/react-tiptap';
-import { useStorage } from '@liveblocks/react/suspense';
+import { ClientSideSuspense, useStorage } from '@liveblocks/react/suspense';
 import {
+  AnchoredThreads,
   FloatingToolbar,
   FloatingComposer,
   FloatingThreads
 } from '@liveblocks/react-tiptap';
+import { useThreads } from '@liveblocks/react/suspense';
 
 import { LEFT_MARGIN_DEFAULT, RIGHT_MARGIN_DEFAULT } from '@/constants/margins';
 import { Ruler } from './ruler';
@@ -51,6 +53,8 @@ export const Editor = ({ initialContent }: EditorProps) => {
     initialContent,
     offlineSupport_experimental: true
   });
+
+  const { threads } = useThreads({ query: { resolved: false } });
 
   const editor = useEditor({
     autofocus: true,
@@ -131,8 +135,20 @@ export const Editor = ({ initialContent }: EditorProps) => {
         <EditorContent editor={editor} />
         <Threads editor={editor} />
         {/* TODO: add floating toolbar editor from liveblocks. example in docs need to configure bold italic etc */}
-        <FloatingToolbar editor={editor} />
-        <FloatingComposer editor={editor} />
+        <ClientSideSuspense fallback={<div>Loading...</div>}>
+          <FloatingToolbar editor={editor} />
+          <FloatingComposer editor={editor} style={{ width: '350px' }} />
+          <FloatingThreads
+            editor={editor}
+            threads={threads}
+            className="w-[350px] block md:hidden"
+          />
+          <AnchoredThreads
+            editor={editor}
+            threads={threads}
+            className="w-[350px] hidden sm:block md:hidden lg:hidden xl:hidden"
+          />
+        </ClientSideSuspense>
       </div>
     </div>
   );
