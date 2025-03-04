@@ -8,7 +8,7 @@ import { usePaginatedQuery } from 'convex/react';
 import Navbar from './navbar';
 import { DocumentsTable } from './documents-table';
 import { useSearchParam } from '@/hooks/use-search-param';
-import TemplatesGallery from './templates-gallery';
+import { TemplatesGallery } from './templates-gallery';
 
 const Home = () => {
   const [search] = useSearchParam();

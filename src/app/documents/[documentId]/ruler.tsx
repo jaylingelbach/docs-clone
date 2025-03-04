@@ -1,22 +1,20 @@
 import { useRef, useState } from 'react';
-import { LEFT_MARGIN_DEFAULT, RIGHT_MARGIN_DEFAULT } from '@/constants/margins';
-import Marker from '../../../components/marker';
 import { useStorage, useMutation } from '@liveblocks/react';
+import Marker from '@/components/marker';
+
+import { RIGHT_MARGIN_DEFAULT, LEFT_MARGIN_DEFAULT } from '@/constants/margins';
 
 const markers = Array.from({ length: 83 }, (_, i) => i);
 
 export const Ruler = () => {
-  // using liveblocks to manage the margin's state. these are custom hooks provided by liveblocks.
   const leftMargin =
     useStorage((root) => root.leftMargin) ?? LEFT_MARGIN_DEFAULT;
-
   const setLeftMargin = useMutation(({ storage }, position: number) => {
     storage.set('leftMargin', position);
   }, []);
 
   const rightMargin =
     useStorage((root) => root.rightMargin) ?? RIGHT_MARGIN_DEFAULT;
-
   const setRightMargin = useMutation(({ storage }, position: number) => {
     storage.set('rightMargin', position);
   }, []);
@@ -32,10 +30,10 @@ export const Ruler = () => {
   const handleRightMouseDown = () => {
     setIsDraggingRight(true);
   };
-  // comment for vercel deploy.
+
   const handleMouseMove = (e: React.MouseEvent) => {
     const PAGE_WIDTH = 816;
-    const MINIMUM_SPACE = 50;
+    const MINIMUM_SPACE = 100;
 
     if ((isDraggingLeft || isDraggingRight) && rulerRef.current) {
       const container = rulerRef.current.querySelector('#ruler-container');
@@ -47,7 +45,7 @@ export const Ruler = () => {
         if (isDraggingLeft) {
           const maxLeftPosition = PAGE_WIDTH - rightMargin - MINIMUM_SPACE;
           const newLeftPosition = Math.min(rawPosition, maxLeftPosition);
-          setLeftMargin(newLeftPosition); // make collaborative
+          setLeftMargin(newLeftPosition);
         } else if (isDraggingRight) {
           const maxRightPosition = PAGE_WIDTH - (leftMargin + MINIMUM_SPACE);
           const newRightPosition = Math.max(PAGE_WIDTH - rawPosition, 0);
@@ -60,17 +58,10 @@ export const Ruler = () => {
       }
     }
   };
+
   const handleMouseUp = () => {
     setIsDraggingLeft(false);
     setIsDraggingRight(false);
-  };
-
-  const handleLeftDoubleClick = () => {
-    setLeftMargin(56);
-  };
-
-  const handleRightDoubleClick = () => {
-    setRightMargin(56);
   };
 
   return (
@@ -87,16 +78,15 @@ export const Ruler = () => {
           isLeft={true}
           isDragging={isDraggingLeft}
           onMouseDown={handleLeftMouseDown}
-          onDoubleClick={handleLeftDoubleClick}
+          onDoubleClick={handleLeftMouseDown}
         />
         <Marker
           position={rightMargin}
           isLeft={false}
           isDragging={isDraggingRight}
           onMouseDown={handleRightMouseDown}
-          onDoubleClick={handleRightDoubleClick}
+          onDoubleClick={handleRightMouseDown}
         />
-
         <div className="absolute inset-x-0 bottom-0 h-full">
           <div className="relative h-full w-[816px]">
             {markers.map((marker) => {
