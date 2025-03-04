@@ -61,19 +61,29 @@ export const create = mutation({
   },
   handler: async (ctx, args) => {
     const user = await ctx.auth.getUserIdentity();
-
     if (!user) {
-      throw new ConvexError('Unathorized');
+      throw new ConvexError('Unauthorized');
     }
 
-    const organizationId = user.organization_id as string | undefined;
+    const organizationId = user.organization_id
+      ? String(user.organization_id)
+      : undefined;
 
-    return ctx.db.insert('documents', {
+    const docData: any = {
       title: args.title ?? 'Untitled document',
       ownerId: user.subject,
-      organizationId,
       initialContent: args.initialContent
-    });
+    };
+
+    if (organizationId) {
+      docData.organizationId = organizationId;
+    }
+
+    const insertedDocId = await ctx.db.insert('documents', docData);
+
+    console.log('Created document ID:', insertedDocId);
+
+    return insertedDocId;
   }
 });
 
@@ -85,6 +95,8 @@ export const removeById = mutation({
     if (!user) {
       throw new ConvexError('Unauthorized');
     }
+
+    console.log('ID: ', args.id);
 
     const organizationId = user.organization_id as string | undefined;
     const organizationRole = user.organization_role as string | undefined;
@@ -121,6 +133,8 @@ export const updateById = mutation({
       throw new ConvexError('Unauthorized');
     }
 
+    console.log('ID: ', args.id);
+
     const organizationId = user.organization_id as string | undefined;
 
     const document = await ctx.db.get(args.id);
@@ -143,10 +157,12 @@ export const updateById = mutation({
 });
 
 export const getById = query({
-  args: { id: v.id('documents') },
+  args: {
+    id: v.id('documents')
+  },
   handler: async (ctx, { id }) => {
     const document = await ctx.db.get(id);
-
+    console.log('ID: ', id);
     if (!document) {
       throw new ConvexError('Document not found');
     }
@@ -159,7 +175,7 @@ export const getByIds = query({
   args: { ids: v.array(v.id('documents')) },
   handler: async (ctx, { ids }) => {
     const documents = [];
-
+    console.log('ID: ', ids);
     for (const id of ids) {
       const document = await ctx.db.get(id);
 
