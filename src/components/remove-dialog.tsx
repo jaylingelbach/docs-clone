@@ -17,7 +17,6 @@ import {
 import { Id } from '../../convex/_generated/dataModel';
 import { toast } from 'sonner';
 import { useMutation } from 'convex/react';
-// import { useRouter } from 'next/navigation';
 
 interface RemoveDialogProps {
   documentId: Id<'documents'>;

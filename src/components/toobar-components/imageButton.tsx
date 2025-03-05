@@ -35,10 +35,7 @@ const ImageButton = () => {
     }
   };
 
-  // local blob
-  //   TODO: save to server
   const onUpload = () => {
-    console.log('upload');
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = 'image/*';

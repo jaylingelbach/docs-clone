@@ -134,7 +134,6 @@ export const Editor = ({ initialContent }: EditorProps) => {
       >
         <EditorContent editor={editor} />
         <Threads editor={editor} />
-        {/* TODO: add floating toolbar editor from liveblocks. example in docs need to configure bold italic etc */}
         <ClientSideSuspense fallback={<div>Loading...</div>}>
           <FloatingToolbar editor={editor} />
           <FloatingComposer editor={editor} style={{ width: '350px' }} />
