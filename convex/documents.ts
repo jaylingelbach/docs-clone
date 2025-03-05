@@ -67,6 +67,7 @@ export const create = mutation({
     }
 
     const organizationId = user.organization_id as string | undefined;
+    console.log('organizationId:', user.organization_id);
 
     return ctx.db.insert('documents', {
       title: args.title ?? 'Untitled document',
