@@ -32,9 +32,10 @@ import {
 import { useThreads } from '@liveblocks/react/suspense';
 
 import { LEFT_MARGIN_DEFAULT, RIGHT_MARGIN_DEFAULT } from '@/constants/margins';
+import { letterSpacingExtension } from '@/extensions/letter-spacing';
+import { PAPER_WIDTH_DEFAULT } from '@/constants/paper';
 import { Ruler } from './ruler';
 import { Threads } from './threads';
-import { PAPER_WIDTH_DEFAULT } from '@/constants/paper';
 
 interface EditorProps {
   initialContent?: string | undefined;
@@ -98,6 +99,7 @@ export const Editor = ({ initialContent }: EditorProps) => {
       }),
       Image,
       ImageResize,
+      letterSpacingExtension,
       LineHeightExtension,
       Link.configure({
         openOnClick: true,
@@ -121,7 +123,20 @@ export const Editor = ({ initialContent }: EditorProps) => {
       TextAlign.configure({
         types: ['heading', 'paragraph']
       }),
-      TextStyle,
+      TextStyle.extend({
+        addAttributes() {
+          return {
+            letterSpacing: {
+              default: null,
+              parseHTML: (element) => element.style.letterSpacing || null,
+              renderHTML: (attributes) => {
+                if (!attributes.letterSpacing) return {};
+                return { style: `letter-spacing: ${attributes.letterSpacing}` };
+              }
+            }
+          };
+        }
+      }),
       Underline
     ]
   });

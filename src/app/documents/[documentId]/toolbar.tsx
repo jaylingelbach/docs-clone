@@ -27,6 +27,7 @@ import AlignButton from '@/components/toobar-components/alignButton';
 import ListButton from '@/components/toobar-components/listButton';
 import FontSizeButton from '@/components/toobar-components/fontSizeButton';
 import LineHeightButton from '@/components/toobar-components/lineHeightButton';
+import LetterSpacingButton from '@/components/toobar-components/letterSpacingButton';
 
 interface ToolbarButtonProps {
   onClick?: () => void;
@@ -37,8 +38,9 @@ interface ToolbarButtonProps {
 const ToolbarButton = ({
   onClick,
   isActive,
-  icon: Icon
-}: ToolbarButtonProps) => {
+  icon: Icon,
+  label
+}: ToolbarButtonProps & { label: string }) => {
   return (
     <button
       onClick={onClick}
@@ -46,6 +48,7 @@ const ToolbarButton = ({
         'text-sm h-7 min-w-7 flex items-center justify-center rounded-sm hover:bg-neutral-200/80',
         isActive && 'bg-neutral-200/80'
       )}
+      title={label}
     >
       <Icon className="size-4" />
     </button>
@@ -151,7 +154,7 @@ export const Toolbar = () => {
   return (
     <div className="bg-[#F1F4F9] px-2.5 py-0.5 rounded-[24px] min-h-[40px] flex items-center gap-x-0.5 overflow-x-auto">
       {sections[0].map((item) => (
-        <ToolbarButton key={item.label} {...item} />
+        <ToolbarButton key={item.label} {...item} label={item.label} />
       ))}
       <Separator orientation="vertical" className="h-6 bg-neutral-400" />
       <FontFamilyButton />
@@ -159,10 +162,9 @@ export const Toolbar = () => {
       <HeadingLevelButton />
       <Separator orientation="vertical" className="h-6 bg-neutral-400" />
       <FontSizeButton />
-      {/* TODO: Kerning */}
       <Separator orientation="vertical" className="h-6 bg-neutral-400" />
       {sections[1].map((item) => (
-        <ToolbarButton key={item.label} {...item} />
+        <ToolbarButton key={item.label} {...item} label={item.label} />
       ))}
       <TextColorButton />
       <HighlightColorButton />
@@ -174,8 +176,10 @@ export const Toolbar = () => {
       <LineHeightButton />
       <ListButton />
       {sections[2].map((item) => (
-        <ToolbarButton key={item.label} {...item} />
+        <ToolbarButton key={item.label} {...item} label={item.label} />
       ))}
+      <Separator orientation="vertical" className="h-6 bg-neutral-400" />
+      <LetterSpacingButton />
       <Separator orientation="vertical" className="h-6 bg-neutral-400" />
     </div>
   );

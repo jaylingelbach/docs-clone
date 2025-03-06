@@ -40,6 +40,7 @@ export async function POST(req: Request) {
   const name =
     user.fullName ?? user.primaryEmailAddress?.emailAddress ?? 'Anonymous';
 
+  // assign random colors to each user. lines 44-49.
   const nameToNumber = name
     .split('')
     .reduce((acc, char) => acc + char.charCodeAt(0), 0);
