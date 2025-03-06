@@ -23,7 +23,7 @@ const LineHeightButton = () => {
           className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
           title="Line Height"
         >
-          <ListCollapseIcon className="size-4" />
+          <ListCollapseIcon className="size-6" />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="p-1 flex flex-col gap-y-1">
@@ -39,7 +39,7 @@ const LineHeightButton = () => {
                 'bg-neutral-200/800'
             )}
           >
-            <span className="text-sm">{label}</span>
+            <span className="text-md">{label}</span>
           </button>
         ))}
       </DropdownMenuContent>

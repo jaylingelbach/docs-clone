@@ -54,10 +54,10 @@ const ImageButton = () => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <button
-            className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
+            className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-md"
             title="Insert Image"
           >
-            <ImageIcon className="size-4" />
+            <ImageIcon className="size-6" />
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
@@ -66,7 +66,7 @@ const ImageButton = () => {
               onUpload();
             }}
           >
-            <UploadIcon className="size-4 mr-2" />
+            <UploadIcon className="size-6 mr-2" />
             Upload
           </DropdownMenuItem>
           <DropdownMenuItem
@@ -74,7 +74,7 @@ const ImageButton = () => {
               setIsDialogOpen(true);
             }}
           >
-            <SearchIcon className="size-4 mr-2" />
+            <SearchIcon className="size-6 mr-2" />
             Paste Image URL
           </DropdownMenuItem>
         </DropdownMenuContent>

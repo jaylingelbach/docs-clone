@@ -28,10 +28,10 @@ const ListButton = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button
-          className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
+          className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-md"
           title="List"
         >
-          <ListIcon className="size-4" />
+          <ListIcon className="size-6" />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="p-1 flex flex-col gap-y-1">
@@ -44,8 +44,8 @@ const ListButton = () => {
               isActive() && 'bg-neutral-200/800'
             )}
           >
-            <Icon className="size-4" />
-            <span className="text-sm">{label}</span>
+            <Icon className="size-6" />
+            <span className="text-md">{label}</span>
           </button>
         ))}
       </DropdownMenuContent>

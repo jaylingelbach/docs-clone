@@ -31,7 +31,7 @@ const HeadingLevelButton = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button
-          className="h-7 min-w-7 shrink-0 flex items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
+          className="h-7 min-w-7 shrink-0 flex items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-md"
           title="Heading"
         >
           <span className="truncate">{getCurrentHeading()}</span>

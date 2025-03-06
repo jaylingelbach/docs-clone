@@ -58,7 +58,7 @@ const FontSizeButton = () => {
         onClick={decrement}
         title="Font Size"
       >
-        <MinusIcon className="size-4" />
+        <MinusIcon className="size-6" />
       </button>
       {isEditing ? (
         <input
@@ -67,7 +67,7 @@ const FontSizeButton = () => {
           onChange={handleInputChanges}
           onBlur={handleInputBlur}
           onKeyDown={handleKeyDown}
-          className="h-7 w-10 text-sm text-center border-neutral-400 rounded-sm bg-transparent focus:outline-none focus:ring-0"
+          className="h-7 w-10 text-md text-center border-neutral-400 rounded-sm bg-transparent focus:outline-none focus:ring-0"
           title="Font Size"
         />
       ) : (
@@ -76,7 +76,7 @@ const FontSizeButton = () => {
             setIsEditing(true);
             setFontSize(currentFontSize);
           }}
-          className="h-7 w-10 text-sm text-center border-neutral-400 rounded-sm bg-transparent cursor-text"
+          className="h-7 w-10 text-md text-center border-neutral-400 rounded-sm bg-transparent cursor-text"
           title="Font Size"
         >
           {currentFontSize}
@@ -87,7 +87,7 @@ const FontSizeButton = () => {
         onClick={increment}
         title="Font Size"
       >
-        <PlusIcon className="size-4" />
+        <PlusIcon className="size-6" />
       </button>
     </div>
   );

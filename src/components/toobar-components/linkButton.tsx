@@ -31,7 +31,7 @@ const LinkButton = () => {
           className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
           title="Add Link"
         >
-          <Link2Icon className="size-4" />
+          <Link2Icon className="size-6" />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="p-2.5 flex items-center gap-x-2">

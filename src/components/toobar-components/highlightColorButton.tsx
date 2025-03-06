@@ -20,7 +20,7 @@ const HighlightColorButton = () => {
           className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
           title="Highlight"
         >
-          <HighlighterIcon className="size-4" />
+          <HighlighterIcon className="size-6" />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="p-0">

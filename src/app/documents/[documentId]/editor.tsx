@@ -1,6 +1,5 @@
 'use client';
 
-import Code from '@tiptap/extension-code';
 import { Color } from '@tiptap/extension-color';
 import { useEditor, EditorContent } from '@tiptap/react';
 import FontFamily from '@tiptap/extension-font-family';

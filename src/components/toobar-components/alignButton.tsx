@@ -44,7 +44,7 @@ const AlignButton = () => {
           className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
           title="Align Content"
         >
-          <AlignLeftIcon className="size-4" />
+          <AlignLeftIcon className="size-6" />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="p-1 flex flex-col gap-y-1">
@@ -59,7 +59,7 @@ const AlignButton = () => {
               editor?.isActive({ textAlign: value }) && 'bg-neutral-200/800'
             )}
           >
-            <Icon className="size-4" />
+            <Icon className="size-6" />
             <span className="text-sm">{label}</span>
           </button>
         ))}
